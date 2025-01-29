@@ -3,5 +3,5 @@
 class Company < ApplicationRecord
   include Discard::Model
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
 end
