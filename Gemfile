@@ -15,5 +15,5 @@ group :development, :test do
   gem "brakeman",               require: false
   gem "rubocop-rails-omakase",  require: false
   gem "dotenv-rails",           "~> 3.1.4"
-  gem "rspec-rails",            "~> 7.0.1"
+  gem "rspec-rails",            "~> 7.1.0"
 end
