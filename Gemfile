@@ -15,8 +15,10 @@ gem 'strong_migrations', '~> 2.1.0'
 
 # Tools
 gem 'discard',     '~> 1.4.0'
+gem 'graphql',     '~> 2.2'
 
 group :development do
+  gem 'graphiql-rails',        '~> 1.8'
   gem 'rubocop',               '~> 1.71.0', require: false
   gem 'rubocop-factory_bot',   '~> 2.26.1', require: false
   gem 'rubocop-performance',   '~> 1.23.1', require: false
