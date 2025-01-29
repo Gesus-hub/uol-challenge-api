@@ -261,6 +261,8 @@ GEM
       rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
+    shoulda-matchers (6.4.0)
+      activesupport (>= 5.2.0)
     stringio (3.1.2)
     strong_migrations (2.1.0)
       activerecord (>= 6.1)
@@ -306,6 +308,7 @@ DEPENDENCIES
   rubocop-rails-omakase
   rubocop-rspec (~> 3.4.0)
   rubocop-rspec_rails (~> 2.30.0)
+  shoulda-matchers (~> 6.4.0)
   strong_migrations (~> 2.1.0)
   tzinfo-data
 
