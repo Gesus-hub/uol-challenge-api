@@ -10,7 +10,8 @@ gem 'rails',        '~> 8.0.1'
 gem 'tzinfo-data',  platforms: %i[windows jruby]
 
 # Database
-gem 'pg', '~> 1.5.9'
+gem 'pg',                '~> 1.5.9'
+gem 'strong_migrations', '~> 2.1.0'
 
 group :development do
   gem 'rubocop',               '~> 1.71.0', require: false
