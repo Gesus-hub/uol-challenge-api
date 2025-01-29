@@ -25,6 +25,7 @@ group :development, :test do
   gem 'brakeman',               require: false
   gem 'debug',                  platforms: %i[mri windows], require: 'debug/prelude'
   gem 'dotenv-rails',           '~> 3.1.4'
+  gem 'factory_bot_rails',      '~> 6.4.4'
   gem 'rspec-rails',            '~> 7.1.0'
   gem 'rubocop-rails-omakase',  require: false
 end
