@@ -3,16 +3,27 @@
 require 'rails_helper'
 
 RSpec.describe 'Queries::User::Show' do
-  let(:user) { create(:user) }
+  let(:company) { create(:company) }
+  let!(:manager) { create(:user, company: company, role: :manager) }
+  let!(:user) { create(:user, company: company, manager: manager) }
 
   describe 'user' do
-    it 'returns a user by ID' do
+    it 'returns a user by ID with all fields' do
       query = <<~GQL
         query {
           user(id: "#{user.id}") {
             id
             name
             email
+            role
+            manager {
+              id
+              name
+            }
+            company {
+              id
+              name
+            }
           }
         }
       GQL
@@ -21,6 +32,11 @@ RSpec.describe 'Queries::User::Show' do
       json = response.parsed_body
 
       expect(json.dig('data', 'user', 'name')).to eq(user.name)
+      expect(json.dig('data', 'user', 'role')).to eq('employee')
+      expect(json.dig('data', 'user', 'manager', 'id')).to eq(manager.id.to_s)
+      expect(json.dig('data', 'user', 'manager', 'name')).to eq(manager.name)
+      expect(json.dig('data', 'user', 'company', 'id')).to eq(company.id.to_s)
+      expect(json.dig('data', 'user', 'company', 'name')).to eq(company.name)
     end
 
     it 'returns an error if user does not exist' do
@@ -28,7 +44,6 @@ RSpec.describe 'Queries::User::Show' do
         query {
           user(id: "non-existent-id") {
             id
-            name
           }
         }
       GQL

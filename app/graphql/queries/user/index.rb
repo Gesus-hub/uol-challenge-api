@@ -8,7 +8,10 @@ module Queries
       type [Types::UserType], null: false
 
       def resolve(company_id:)
-        ::User.kept.where(company_id: company_id)
+        company = ::Company.find_by(id: company_id)
+        return GraphQL::ExecutionError.new('Company not found') unless company
+
+        company.users.kept
       end
     end
   end
