@@ -39,8 +39,9 @@ RSpec.describe 'Mutations::Company' do
   end
 
   describe 'updateCompany' do
+    let(:company) { create(:company, name: 'Old Name') }
+
     it 'updates a company successfully' do
-      company = create(:company, name: 'Old Name')
       query = <<~GQL
         mutation {
           updateCompany(input: { id: "#{company.id}", name: "Updated Name" }) {
@@ -74,8 +75,9 @@ RSpec.describe 'Mutations::Company' do
   end
 
   describe 'discardCompany' do
+    let(:company) { create(:company) }
+
     it 'soft deletes a company and verifies it is not in active list' do
-      company = create(:company)
       query = <<~GQL
         mutation {
           discardCompany(input: { id: "#{company.id}" }) {
@@ -110,8 +112,9 @@ RSpec.describe 'Mutations::Company' do
   end
 
   describe 'undiscardCompany' do
+    let(:company) { create(:company, discarded_at: Time.current) }
+
     it 'restores a soft-deleted company' do
-      company = create(:company, discarded_at: Time.current)
       query = <<~GQL
         mutation {
           undiscardCompany(input: { id: "#{company.id}" }) {
