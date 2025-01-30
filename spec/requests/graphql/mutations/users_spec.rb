@@ -82,4 +82,29 @@ RSpec.describe 'Mutations::User' do
       expect(json.dig('data', 'undiscardUser', 'discardedAt')).to be_nil
     end
   end
+
+  describe 'assignManager' do
+    let(:company) { create(:company) }
+    let(:manager) { create(:user, :manager, company: company) }
+    let(:employee) { create(:user, :employee, company: company) }
+
+    it 'assigns a manager to a user' do
+      query = <<~GQL
+        mutation {
+          assignManager(input: { userId: "#{employee.id}", managerId: "#{manager.id}" }) {
+            id
+            manager {
+              id
+              name
+            }
+          }
+        }
+      GQL
+
+      post '/graphql', params: { query: query }
+      json = response.parsed_body
+
+      expect(json.dig('data', 'assignManager', 'manager', 'id')).to eq(manager.id.to_s)
+    end
+  end
 end
