@@ -15,7 +15,7 @@ gem 'strong_migrations', '~> 2.1.0'
 
 # Tools
 gem 'discard',     '~> 1.4.0'
-gem 'graphql',     '~> 2.2'
+gem 'graphql',     '~> 2.4'
 
 group :development do
   gem 'graphiql-rails',        '~> 1.8'
