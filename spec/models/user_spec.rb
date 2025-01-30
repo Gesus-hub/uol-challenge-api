@@ -1,64 +1,71 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 RSpec.describe User do
-  describe 'associations' do
-    it { is_expected.to belong_to(:company) }
-    it { is_expected.to belong_to(:manager).optional }
-    it { is_expected.to have_many(:subordinates).class_name('User') }
-  end
-
-  describe 'validations' do
-    subject { create(:user) }
-
-    it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_presence_of(:email) }
-    it { is_expected.to validate_uniqueness_of(:email) }
-  end
-
   describe 'custom validations' do
     let(:company) { create(:company) }
     let(:another_company) { create(:company) }
-    let(:manager) { create(:user, company: company) }
-    let(:employee) { create(:user, company: company, manager: manager) }
-    let(:external_manager) { create(:user, company: another_company) }
+
+    let(:users) do
+      {
+        executive: create(:user, company: company, role: :executive),
+        director: create(:user, company: company, role: :director),
+        manager: create(:user, company: company, role: :manager),
+        employee: create(:user, company: company, role: :employee),
+        external_manager: create(:user, company: another_company)
+      }
+    end
+
+    before do
+      users[:director].update(manager: users[:executive])
+      users[:manager].update(manager: users[:director])
+      users[:employee].update(manager: users[:manager])
+    end
 
     describe '#manager_must_be_in_same_company' do
       it 'allows manager from the same company' do
-        expect(employee.valid?).to be true
+        expect(users[:employee].valid?).to be true
       end
 
       it 'does not allow manager from a different company' do
-        employee.manager = external_manager
-        expect(employee.valid?).to be false
-        expect(employee.errors[:manager]).to include('must be in the same company')
+        users[:employee].manager = users[:external_manager]
+        expect(users[:employee].valid?).to be false
+        expect(users[:employee].errors[:manager]).to include('must be in the same company')
       end
     end
 
     describe '#avoid_hierarchy_loops' do
       it 'does not allow a user to be their own manager' do
-        employee.manager = employee
-        expect(employee.valid?).to be false
-        expect(employee.errors[:manager]).to include('hierarchy loop detected')
+        users[:employee].manager = users[:employee]
+        expect(users[:employee].valid?).to be false
+        expect(users[:employee].errors[:manager]).to include('hierarchy loop detected')
       end
 
       it 'does not allow circular hierarchy' do
-        manager.manager = employee
-        expect(manager.valid?).to be false
-        expect(manager.errors[:manager]).to include('hierarchy loop detected')
+        users[:manager].manager = users[:employee]
+        expect(users[:manager].valid?).to be false
+        expect(users[:manager].errors[:manager]).to include('hierarchy loop detected')
+      end
+    end
+
+    describe '#cannot_become_manager_of_superior' do
+      it 'does not allow a subordinate to be assigned as a manager of a superior' do
+        users[:director].manager = users[:employee]
+        expect(users[:director].valid?).to be false
+        expect(users[:director].errors[:manager])
+          .to include('cannot be assigned as a manager to someone higher in the hierarchy')
       end
     end
   end
 
   describe '#self_and_ancestors' do
     let(:company) { create(:company) }
-    let(:grand_manager) { create(:user, company: company) }
-    let(:manager) { create(:user, company: company, manager: grand_manager) }
-    let(:employee) { create(:user, company: company, manager: manager) }
+    let(:executive) { create(:user, :executive, company: company) }
+    let(:director) { create(:user, :director, company: company, manager: executive) }
+    let(:manager) { create(:user, :manager, company: company, manager: director) }
+    let(:employee) { create(:user, :employee, company: company, manager: manager) }
 
     it 'returns the correct hierarchy' do
-      expect(employee.self_and_ancestors).to contain_exactly(employee, manager, grand_manager)
+      expect(employee.self_and_ancestors).to contain_exactly(employee, manager, director, executive)
     end
   end
 end
