@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_30_023333) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_30_041736) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -29,10 +29,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_30_023333) do
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "manager_id"
+    t.integer "role", default: 0, null: false
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["manager_id"], name: "index_users_on_manager_id"
   end
 
   add_foreign_key "users", "companies"
+  add_foreign_key "users", "users", column: "manager_id"
 end
