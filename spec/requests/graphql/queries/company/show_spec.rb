@@ -4,9 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'Queries::Company::Show' do
   describe 'company' do
-    it 'returns a company by ID' do
-      company = create(:company, name: 'Test Company')
+    let(:company) { create(:company, name: 'Test Company') }
 
+    it 'returns a company by ID' do
       query = <<~GQL
         query {
           company(id: "#{company.id}") {
