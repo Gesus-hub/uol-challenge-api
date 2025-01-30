@@ -6,12 +6,16 @@ FactoryBot.define do
     email { Faker::Internet.email }
     company
 
-    trait :employee do
-      role { :employee }
-    end
-
     trait :manager do
       role { :manager }
+    end
+
+    trait :director do
+      role { :director }
+    end
+
+    trait :executive do
+      role { :executive }
     end
 
     trait :with_subordinates do
