@@ -169,6 +169,11 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
+    propshaft (0.6.4)
+      actionpack (>= 7.0.0)
+      activesupport (>= 7.0.0)
+      rack
+      railties (>= 7.0.0)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -321,6 +326,7 @@ DEPENDENCIES
   graphiql-rails (~> 1.8)
   graphql (~> 2.4)
   pg (~> 1.5.9)
+  propshaft (~> 0.6.0)
   pry-byebug (~> 3.10)
   pry-rails (~> 0.3.11)
   puma (>= 5.0)
