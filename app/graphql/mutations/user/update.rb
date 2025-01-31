@@ -13,7 +13,15 @@ module Mutations
 
       def resolve(id:, name: nil, email: nil, manager_id: nil, role: nil)
         user = ::User.kept.find(id)
-        user.update!(name: name, email: email, manager_id: manager_id, role: role)
+
+        attributes = {
+          name: name || user.name,
+          email: email || user.email,
+          manager_id: manager_id,
+          role: role
+        }.compact
+
+        user.update!(attributes)
         user
       rescue ActiveRecord::RecordInvalid => e
         GraphQL::ExecutionError.new(e.record.errors.full_messages.join(', '))
