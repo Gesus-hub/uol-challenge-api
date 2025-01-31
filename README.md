@@ -58,7 +58,7 @@ rails db:create db:migrate
 rails s
 ```
 
-A API GraphQL estará disponível em http://localhost:3000/graphql. Para testar as queries, você pode usar GraphiQL o acessando.
+A API GraphQL estará disponível em http://localhost:3000/graphiql. Para testar as queries, você pode usar GraphiQL o acessando.
 
 ### 🧪 Como Rodar os Testes
 Testes unitários e de integração
