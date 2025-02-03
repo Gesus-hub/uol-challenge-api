@@ -16,7 +16,7 @@ gem 'strong_migrations', '~> 2.1.0'
 # Tools
 gem 'discard',     '~> 1.4.0'
 gem 'graphql',     '~> 2.4'
-gem 'propshaft', '~> 0.6.0'
+gem 'propshaft', '~> 1.1.0'
 
 group :development do
   gem 'graphiql-rails',        '~> 1.8'
