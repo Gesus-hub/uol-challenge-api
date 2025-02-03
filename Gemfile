@@ -11,7 +11,7 @@ gem 'tzinfo-data',  platforms: %i[windows jruby]
 
 # Database
 gem 'pg',                '~> 1.5.9'
-gem 'strong_migrations', '~> 2.1.0'
+gem 'strong_migrations', '~> 2.2.0'
 
 # Tools
 gem 'discard',     '~> 1.4.0'
