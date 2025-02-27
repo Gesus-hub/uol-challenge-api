@@ -19,7 +19,7 @@ gem 'graphql',     '~> 2.4'
 gem 'propshaft', '~> 0.6.0'
 
 group :development do
-  gem 'graphiql-rails',        '~> 1.8'
+  gem 'graphiql-rails',        '~> 1.10'
   gem 'rubocop',               '~> 1.71.0', require: false
   gem 'rubocop-factory_bot',   '~> 2.26.1', require: false
   gem 'rubocop-performance',   '~> 1.23.1', require: false
