@@ -6,7 +6,7 @@ ruby '3.3.5'
 
 # Rails standard gems
 gem 'puma',         '>= 5.0'
-gem 'rails',        '~> 8.0.1'
+gem 'rails',        '~> 8.0.2'
 gem 'tzinfo-data',  platforms: %i[windows jruby]
 
 # Database
