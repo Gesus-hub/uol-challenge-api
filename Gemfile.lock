@@ -109,7 +109,7 @@ GEM
       activesupport (>= 6.1)
     graphiql-rails (1.10.1)
       railties
-    graphql (2.4.9)
+    graphql (2.5.2)
       base64
       fiber-storage
       logger
@@ -122,7 +122,7 @@ GEM
       reline (>= 0.4.2)
     json (2.9.1)
     language_server-protocol (3.17.0.4)
-    logger (1.6.5)
+    logger (1.7.0)
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -324,7 +324,7 @@ DEPENDENCIES
   factory_bot_rails (~> 6.4.4)
   faker (~> 3.5.1)
   graphiql-rails (~> 1.8)
-  graphql (~> 2.4)
+  graphql (~> 2.5)
   pg (~> 1.5.9)
   propshaft (~> 0.6.0)
   pry-byebug (~> 3.10)
